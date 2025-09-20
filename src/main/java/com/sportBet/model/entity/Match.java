@@ -23,16 +23,22 @@ public class Match {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
     private LocalDate matchDate;
 
+    @Column(nullable = false)
     private LocalTime matchTime;
 
-    private String teamA;
-    private String teamB;
+    @Column(nullable = false)
+    private String team_a;
+    @Column(nullable = false)
+    private String team_b;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Sport sport;
 
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)

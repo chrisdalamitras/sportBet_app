@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name = "match_odd",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"match_id", "specifier"})}
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +20,10 @@ public class MatchOdd {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String specifier;
+
+    @Column(nullable = false)
     private Double odd;
 
     @ManyToOne(fetch = FetchType.LAZY)

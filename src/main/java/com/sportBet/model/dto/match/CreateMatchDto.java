@@ -31,11 +31,11 @@ public class CreateMatchDto {
 
     @Schema(example = "Barcelona")
     @NotBlank(message = "Team A must not be blank")
-    private String teamA;
+    private String team_a;
 
     @Schema(example = "Real Madrid")
     @NotBlank(message = "Team B must not be blank")
-    private String teamB;
+    private String team_b;
 
     @Schema(example = "FOOTBALL")
     @NotNull(message = "Sport is required")

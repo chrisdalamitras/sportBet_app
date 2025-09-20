@@ -17,8 +17,8 @@ public class MatchDto {
     private String description;
     private LocalDate matchDate;
     private LocalTime matchTime;
-    private String teamA;
-    private String teamB;
+    private String team_a;
+    private String team_b;
     private Sport sport;
     private List<MatchOddDto> odds;
 }
