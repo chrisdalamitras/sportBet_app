@@ -54,7 +54,10 @@ public class MatchService {
     }
 
     public void deleteMatch(Long id) {
-        matchRepo.deleteById(id);
+        Match match = matchRepo.findById(id)
+                .orElseThrow(() -> new NotFoundException("Match not found with id " + id));
+
+        matchRepo.delete(match);
     }
 
     // ---- Odds methods ----
