@@ -1,5 +1,6 @@
 package com.sportBet.model.dto.match;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sportBet.model.enums.Sport;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -21,11 +22,13 @@ public class CreateMatchDto {
     @NotBlank(message = "Description must not be blank")
     private String description;
 
-    @Schema(example = "2025-05-10")
+    @Schema(type = "string", format = "date", example = "2025-07-01")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @NotNull(message = "Match date is required")
     private LocalDate matchDate;
 
-    @Schema(example = "21:00")
+    @Schema(type = "string", format = "time", example = "20:00")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @NotNull(message = "Match time is required")
     private LocalTime matchTime;
 
