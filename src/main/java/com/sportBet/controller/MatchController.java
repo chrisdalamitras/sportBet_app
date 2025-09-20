@@ -7,6 +7,7 @@ import com.sportBet.model.dto.matchodd.CreateMatchOddDto;
 import com.sportBet.model.dto.matchodd.MatchOddDto;
 import com.sportBet.model.dto.matchodd.UpdateMatchOddDto;
 import com.sportBet.service.MatchService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,14 +34,14 @@ public class MatchController {
     }
 
     @PostMapping
-    public MatchDto createMatch(@RequestBody CreateMatchDto dto) {
+    public MatchDto createMatch(@Valid @RequestBody CreateMatchDto dto) {
         return matchService.createMatch(dto);
     }
 
     @PutMapping("/{matchId}")
     public MatchDto updateMatch(
             @PathVariable Long matchId,
-            @RequestBody UpdateMatchDto dto) {
+            @Valid @RequestBody UpdateMatchDto dto) {
         return matchService.updateMatch(matchId, dto);
     }
 
@@ -65,7 +66,7 @@ public class MatchController {
     @PostMapping("/{matchId}/odds")
     public MatchOddDto addOddToMatch(
             @PathVariable Long matchId,
-            @RequestBody CreateMatchOddDto dto) {
+            @Valid @RequestBody CreateMatchOddDto dto) {
         return matchService.addOddToMatch(matchId, dto);
     }
 
@@ -73,7 +74,7 @@ public class MatchController {
     public MatchOddDto updateOdd(
             @PathVariable Long matchId,
             @PathVariable Long oddId,
-            @RequestBody UpdateMatchOddDto dto) {
+            @Valid @RequestBody UpdateMatchOddDto dto) {
         return matchService.updateOdd(matchId, oddId, dto);
     }
 

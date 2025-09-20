@@ -1,5 +1,6 @@
 package com.sportBet.service;
 
+import com.sportBet.exception.NotFoundException;
 import com.sportBet.mapper.MatchMapper;
 import com.sportBet.model.dto.match.CreateMatchDto;
 import com.sportBet.model.dto.match.MatchDto;
@@ -34,7 +35,7 @@ public class MatchService {
 
     public MatchDto getMatch(Long id) {
         Match match = matchRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Match not found"));
+                .orElseThrow(() -> new NotFoundException("Match not found with id " + id));
 
         return mapper.toMatchDto(match);
     }
@@ -46,7 +47,7 @@ public class MatchService {
 
     public MatchDto updateMatch(Long id, UpdateMatchDto dto) {
         Match match = matchRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Match not found"));
+                .orElseThrow(() -> new NotFoundException("Match not found with id " + id));
 
         mapper.updateMatchFromDto(dto, match);
         return mapper.toMatchDto(matchRepo.save(match));
@@ -63,7 +64,7 @@ public class MatchService {
 
     public MatchOddDto getOdd(Long matchId, Long oddId) {
         MatchOdd odd = oddRepo.findById(oddId)
-                .orElseThrow(() -> new RuntimeException("Odd not found"));
+                .orElseThrow(() -> new NotFoundException("Odd not found with id " + oddId));
 
         if (!odd.getMatch().getId().equals(matchId)) {
             throw new RuntimeException("Odd does not belong to this match");
@@ -74,7 +75,7 @@ public class MatchService {
 
     public MatchOddDto addOddToMatch(Long matchId, CreateMatchOddDto dto) {
         Match match = matchRepo.findById(matchId)
-                .orElseThrow(() -> new RuntimeException("Match not found"));
+                .orElseThrow(() -> new NotFoundException("Match not found with id " + matchId));
 
         MatchOdd odd = mapper.toMatchOddEntity(dto);
         odd.setMatch(match);
@@ -83,7 +84,7 @@ public class MatchService {
 
     public MatchOddDto updateOdd(Long matchId, Long oddId, UpdateMatchOddDto dto) {
         MatchOdd odd = oddRepo.findById(oddId)
-                .orElseThrow(() -> new RuntimeException("Odd not found"));
+                .orElseThrow(() -> new NotFoundException("Odd not found with id " + oddId));
 
         if (!odd.getMatch().getId().equals(matchId)) {
             throw new RuntimeException("Odd does not belong to this match");
@@ -95,7 +96,7 @@ public class MatchService {
 
     public void deleteOdd(Long matchId, Long oddId) {
         MatchOdd odd = oddRepo.findById(oddId)
-                .orElseThrow(() -> new RuntimeException("Odd not found"));
+                .orElseThrow(() -> new NotFoundException("Odd not found with id" + oddId));
 
         if (!odd.getMatch().getId().equals(matchId)) {
             throw new RuntimeException("Odd does not belong to this match");
