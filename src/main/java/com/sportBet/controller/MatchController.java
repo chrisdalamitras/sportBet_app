@@ -8,6 +8,8 @@ import com.sportBet.model.dto.matchodd.MatchOddDto;
 import com.sportBet.model.dto.matchodd.UpdateMatchOddDto;
 import com.sportBet.service.MatchService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,65 +26,67 @@ public class MatchController {
 
     // ---- Match endpoints ----
     @GetMapping
-    public List<MatchDto> getAllMatches() {
-        return matchService.getAllMatches();
+    public ResponseEntity<List<MatchDto>> getAllMatches() {
+        return ResponseEntity.ok(matchService.getAllMatches());
     }
 
     @GetMapping("/{matchId}")
-    public MatchDto getMatch(@PathVariable Long matchId) {
-        return matchService.getMatch(matchId);
+    public ResponseEntity<MatchDto> getMatch(@PathVariable Long matchId) {
+        return ResponseEntity.ok(matchService.getMatch(matchId));
     }
 
     @PostMapping
-    public MatchDto createMatch(@Valid @RequestBody CreateMatchDto dto) {
-        return matchService.createMatch(dto);
+    public ResponseEntity<MatchDto> createMatch(@Valid @RequestBody CreateMatchDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(matchService.createMatch(dto));
     }
 
     @PutMapping("/{matchId}")
-    public MatchDto updateMatch(
+    public ResponseEntity<MatchDto> updateMatch(
             @PathVariable Long matchId,
             @Valid @RequestBody UpdateMatchDto dto) {
-        return matchService.updateMatch(matchId, dto);
+        return ResponseEntity.ok(matchService.updateMatch(matchId, dto));
     }
 
     @DeleteMapping("/{matchId}")
-    public void deleteMatch(@PathVariable Long matchId) {
+    public ResponseEntity<Void> deleteMatch(@PathVariable Long matchId) {
         matchService.deleteMatch(matchId);
+        return ResponseEntity.noContent().build();
     }
 
     // ---- MatchOdd endpoints ----
     @GetMapping("/{matchId}/odds")
-    public List<MatchOddDto> getOddsForMatch(@PathVariable Long matchId) {
-        return matchService.getOddsForMatch(matchId);
+    public ResponseEntity<List<MatchOddDto>> getOddsForMatch(@PathVariable Long matchId) {
+        return ResponseEntity.ok(matchService.getOddsForMatch(matchId));
     }
 
     @GetMapping("/{matchId}/odds/{oddId}")
-    public MatchOddDto getOdd(
+    public ResponseEntity<MatchOddDto> getOdd(
             @PathVariable Long matchId,
             @PathVariable Long oddId) {
-        return matchService.getOdd(matchId, oddId);
+        return ResponseEntity.ok(matchService.getOdd(matchId, oddId));
     }
 
     @PostMapping("/{matchId}/odds")
-    public MatchOddDto addOddToMatch(
+    public ResponseEntity<MatchOddDto> addOddToMatch(
             @PathVariable Long matchId,
             @Valid @RequestBody CreateMatchOddDto dto) {
-        return matchService.addOddToMatch(matchId, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(matchService.addOddToMatch(matchId, dto));
     }
 
     @PutMapping("/{matchId}/odds/{oddId}")
-    public MatchOddDto updateOdd(
+    public ResponseEntity<MatchOddDto> updateOdd(
             @PathVariable Long matchId,
             @PathVariable Long oddId,
             @Valid @RequestBody UpdateMatchOddDto dto) {
-        return matchService.updateOdd(matchId, oddId, dto);
+        return ResponseEntity.ok(matchService.updateOdd(matchId, oddId, dto));
     }
 
     @DeleteMapping("/{matchId}/odds/{oddId}")
-    public void deleteOdd(
+    public ResponseEntity<Void> deleteOdd(
             @PathVariable Long matchId,
             @PathVariable Long oddId) {
         matchService.deleteOdd(matchId, oddId);
+        return ResponseEntity.noContent().build();
     }
 
 }
