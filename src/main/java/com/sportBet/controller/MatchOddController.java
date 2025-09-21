@@ -6,6 +6,7 @@ import com.sportBet.model.dto.matchodd.MatchOddDto;
 import com.sportBet.model.dto.matchodd.UpdateMatchOddDto;
 import com.sportBet.service.MatchOddService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,11 +34,15 @@ public class MatchOddController {
             @ApiResponse(
                     responseCode = "200",
                     description = "List of odds retrieved successfully",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = MatchOddDto.class)))),
             @ApiResponse(
                     responseCode = "404",
                     description = "Match not found",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping
     public ResponseEntity<List<MatchOddDto>> getOddsForMatch(@PathVariable Long matchId) {
@@ -50,15 +55,21 @@ public class MatchOddController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Odd retrieved successfully",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MatchOddDto.class))),
             @ApiResponse(
                     responseCode = "404",
                     description = "Odd not found",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
                     description = "Odd does not belong to this match",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @GetMapping("/{oddId}")
     public ResponseEntity<MatchOddDto> getOdd(
@@ -73,19 +84,27 @@ public class MatchOddController {
             @ApiResponse(
                     responseCode = "201",
                     description = "Odd created successfully",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MatchOddDto.class))),
             @ApiResponse(
                     responseCode = "400",
                     description = "Validation error or duplicate specifier",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "404",
                     description = "Odd not found",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
                     description = "Odd does not belong to this match",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PostMapping
     public ResponseEntity<MatchOddDto> addOddToMatch(
@@ -100,19 +119,27 @@ public class MatchOddController {
             @ApiResponse(
                     responseCode = "200",
                     description = "Odd updated successfully",
-                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = MatchOddDto.class))),
             @ApiResponse(
                     responseCode = "400",
                     description = "Validation error or duplicate specifier",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "404",
                     description = "Odd not found",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
                     description = "Odd does not belong to this match",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @PutMapping("/{oddId}")
     public ResponseEntity<MatchOddDto> updateOdd(
@@ -131,11 +158,15 @@ public class MatchOddController {
             @ApiResponse(
                     responseCode = "404",
                     description = "Odd not found",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
                     description = "Odd does not belong to this match",
-                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class)))
     })
     @DeleteMapping("/{oddId}")
     public ResponseEntity<Void> deleteOdd(
