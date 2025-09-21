@@ -1,5 +1,6 @@
 package com.sportBet.controller;
 
+import com.sportBet.model.dto.error.ErrorResponse;
 import com.sportBet.model.dto.matchodd.CreateMatchOddDto;
 import com.sportBet.model.dto.matchodd.MatchOddDto;
 import com.sportBet.model.dto.matchodd.UpdateMatchOddDto;
@@ -35,7 +36,9 @@ public class MatchOddController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Match not found")})
+                    description = "Match not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @GetMapping
     public ResponseEntity<List<MatchOddDto>> getOddsForMatch(@PathVariable Long matchId) {
         return ResponseEntity.ok(matchOddService.getOddsForMatch(matchId));
@@ -50,10 +53,13 @@ public class MatchOddController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Odd not found"),
+                    description = "Odd not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
-                    description = "Odd does not belong to this match")})
+                    description = "Odd does not belong to this match",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @GetMapping("/{oddId}")
     public ResponseEntity<MatchOddDto> getOdd(
             @PathVariable Long matchId,
@@ -70,13 +76,17 @@ public class MatchOddController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Validation error or duplicate specifier"),
+                    description = "Validation error or duplicate specifier",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Odd not found"),
+                    description = "Odd not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
-                    description = "Odd does not belong to this match")})
+                    description = "Odd does not belong to this match",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @PostMapping
     public ResponseEntity<MatchOddDto> addOddToMatch(
             @PathVariable Long matchId,
@@ -93,13 +103,17 @@ public class MatchOddController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchOddDto.class))),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Validation error or duplicate specifier"),
+                    description = "Validation error or duplicate specifier",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Odd not found"),
+                    description = "Odd not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
-                    description = "Odd does not belong to this match")})
+                    description = "Odd does not belong to this match",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @PutMapping("/{oddId}")
     public ResponseEntity<MatchOddDto> updateOdd(
             @PathVariable Long matchId,
@@ -116,10 +130,12 @@ public class MatchOddController {
                     description = "Odd deleted successfully"),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Odd not found"),
+                    description = "Odd not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "500",
-                    description = "Odd does not belong to this match")
+                    description = "Odd does not belong to this match",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @DeleteMapping("/{oddId}")
     public ResponseEntity<Void> deleteOdd(

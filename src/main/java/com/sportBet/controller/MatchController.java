@@ -1,5 +1,6 @@
 package com.sportBet.controller;
 
+import com.sportBet.model.dto.error.ErrorResponse;
 import com.sportBet.model.dto.match.CreateMatchDto;
 import com.sportBet.model.dto.match.MatchDto;
 import com.sportBet.model.dto.match.UpdateMatchDto;
@@ -48,7 +49,9 @@ public class MatchController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchDto.class))),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Match not found")})
+                    description = "Match not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @GetMapping("/{matchId}")
     public ResponseEntity<MatchDto> getMatch(@PathVariable Long matchId) {
         return ResponseEntity.ok(matchService.getMatch(matchId));
@@ -64,7 +67,9 @@ public class MatchController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchDto.class))),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Validation error")})
+                    description = "Validation error",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @PostMapping
     public ResponseEntity<MatchDto> createMatch(@Valid @RequestBody CreateMatchDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(matchService.createMatch(dto));
@@ -79,10 +84,13 @@ public class MatchController {
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = MatchDto.class))),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Validation error"),
+                    description = "Validation error",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Match not found")})
+                    description = "Match not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @PutMapping("/{matchId}")
     public ResponseEntity<MatchDto> updateMatch(
             @PathVariable Long matchId,
@@ -98,7 +106,9 @@ public class MatchController {
                     description = "Match deleted successfully"),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Match not found")})
+                    description = "Match not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @DeleteMapping("/{matchId}")
     public ResponseEntity<Void> deleteMatch(@PathVariable Long matchId) {
         matchService.deleteMatch(matchId);
